@@ -87,7 +87,9 @@ classdef AbstractAnimator < handle
             obj.tmr.Period = obj.TimerDelta;
             obj.tmr.ExecutionMode = 'fixedRate';
             obj.tmr.TimerFcn = @(~, ~) obj.Animate();
-            
+            if(~exist('terrain', 'var'))
+                terrain=[];
+            end
             % Define Terrain
             if isempty(terrain)
                 [terrain.Tx, terrain.Ty] = meshgrid(-3:1:3, -3:1:3);

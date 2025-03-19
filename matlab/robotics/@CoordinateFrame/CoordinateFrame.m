@@ -71,7 +71,7 @@ classdef CoordinateFrame < handle
             %  varargin: variable nama-value pair input arguments, in detail:
             %    Name: the name of the frame @type char
             %    Reference: the reference frame @type CoordinateFrame
-            %    Offset: the offset of the origin @type rowvec
+            %    P: the offset of the origin @type rowvec
             %    R: the rotation matrix or the Euler angles @type rowvec
             
             arguments
