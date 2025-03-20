@@ -62,16 +62,16 @@ classdef CLFQP < Controller
             end
             
             
-            y = struct2array(plant.VirtualConstraints);
+            y = struct2cell(plant.VirtualConstraints);
             ny = length(y);
             y_a = cell(ny,1);
             y_d = cell(ny,1);
             tau = cell(ny,1);
             
             % total dimension of the virtual constraints
-            dim_y = sum([y.Dimension]);
+            dim_y = sum([y{:}.Dimension]);
             % total dimension of outputs (including relative degrees)
-            dim_eta = sum([y.Dimension.*y.RelativeDegree]);
+            dim_eta = sum([y{:}.Dimension.*y{:}.RelativeDegree]);
             % some constants required for CLF
             F_mat = zeros(dim_eta);
             G_mat = zeros(dim_eta,dim_y);

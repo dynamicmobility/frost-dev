@@ -53,17 +53,17 @@ function [xdot] = secondOrderDynamics(obj, t, x, controller, params, logger)
     %% holonomic constraints
     h_cstr_name = fieldnames(obj.HolonomicConstraints);
     if ~isempty(h_cstr_name)           % if holonomic constraints are defined
-        h_cstr = struct2array(obj.HolonomicConstraints);
+        h_cstr = struct2cell(obj.HolonomicConstraints);
         n_cstr = length(h_cstr);
         % determine the total dimension of the holonomic constraints
-        cdim = sum([h_cstr.Dimension]);
+        cdim = sum([h_cstr{:}.Dimension]);
         % initialize the Jacobian matrix
         Je = zeros(cdim,nx);
         Jedot = zeros(cdim,nx);
         
         idx = 1;
         for i=1:n_cstr
-            cstr = h_cstr(i);
+            cstr = h_cstr{i};
             
             % calculate the Jacobian
             [Jh,dJh] = calcJacobian(cstr,q,dq);
@@ -131,7 +131,7 @@ function [xdot] = secondOrderDynamics(obj, t, x, controller, params, logger)
         % extract and store
         idx = 1;
         for i=1:n_cstr           
-            cstr = h_cstr(i);
+            cstr = h_cstr{i};
             hval.(h_cstr_name{i}) = calcConstraint(cstr,q);
             cstr_indices = idx:idx+cstr.Dimension-1;
             input_name = cstr.InputName;

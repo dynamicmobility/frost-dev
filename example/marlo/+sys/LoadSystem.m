@@ -12,11 +12,11 @@ function [system] = LoadSystem(model, load_path)
     leftStance.UserNlpConstraint = @opt.callback.LeftStanceConstraints;
     
     leftImpact = RigidImpact('LeftImpact', leftStance, 'leftFootHeight'); % To leftStance
-    leftImpact.addImpactConstraint(struct2array(leftStance.HolonomicConstraints), load_path);
+    leftImpact.addImpactConstraint(struct2cell(leftStance.HolonomicConstraints), load_path);
     leftImpact.UserNlpConstraint = @opt.callback.LeftImpactConstraints;
     
     rightImpact = RigidImpact('RightImpact', rightStance, 'rightFootHeight'); % To rightStance
-    rightImpact.addImpactConstraint(struct2array(rightStance.HolonomicConstraints), load_path);
+    rightImpact.addImpactConstraint(struct2cell(rightStance.HolonomicConstraints), load_path);
     rightImpact.UserNlpConstraint = @opt.callback.RightImpactConstraints;
     
     

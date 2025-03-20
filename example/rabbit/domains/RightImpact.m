@@ -10,5 +10,5 @@ function guard = RightImpact(domain, load_path)
     % set the impact constraint
     % we will compute the impact map every time you add an impact
     % constraints, so it would be helpful to load expressions directly
-    guard.addImpactConstraint(struct2array(domain.HolonomicConstraints), load_path);
+    guard.addImpactConstraint(struct2cell(domain.HolonomicConstraints), load_path);
 end

@@ -8,5 +8,5 @@ function guard = LeftImpact(domain, load_path)
     guard.R = guard.R(:,[1:3,6:7,4:5]);
     
     % set the impact constraint
-    guard.addImpactConstraint(struct2array(domain.HolonomicConstraints), load_path);    
+    guard.addImpactConstraint(struct2cell(domain.HolonomicConstraints), load_path);    
 end

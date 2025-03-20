@@ -51,7 +51,7 @@ function [xdot] = firstOrderDynamics(obj, t, x, controller, params, logger)
     %% holonomic constraints
     h_cstr_name = fieldnames(obj.HolonomicConstraints);
     if ~isempty(h_cstr_name)           % if holonomic constraints are defined
-        h_cstr = struct2array(obj.HolonomicConstraints);
+        h_cstr = struct2cell(obj.HolonomicConstraints);
         n_cstr = length(h_cstr);
         % determine the total dimension of the holonomic constraints
         cdim = sum([h_cstr.Dimension]);

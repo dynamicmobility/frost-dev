@@ -209,12 +209,13 @@ classdef RigidImpact < DiscreteDynamics
             %
             %
             % Parameters:
-            % constr: the expression of the constraints @type HolonomicConstraint
+            % constr: the expression of the Holonomic constraints @type cell
             
             
             % validate input argument
-            validateattributes(constr, {'HolonomicConstraint'},...
-                {},'RigidImpact', 'ImpactConstraint');
+            validateattributes(constr, {'cell'}, {}, '', '');
+            cellfun(@(C)validateattributes(C, {'HolonomicConstraint'},...
+                {},'RigidImpact', 'ImpactConstraint'), constr);
             
             n_constr = numel(constr);
             
@@ -223,7 +224,7 @@ classdef RigidImpact < DiscreteDynamics
             end
             
             for i=1:n_constr
-                c_obj = constr(i);
+                c_obj = constr{i};
                 c_name = c_obj.Name;
                 
                 if isfield(obj.ImpactConstraints, c_name)

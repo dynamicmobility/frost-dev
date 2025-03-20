@@ -55,14 +55,14 @@ classdef OutputPD < Controller
             end
             
             
-            y = struct2array(plant.VirtualConstraints);
+            y = struct2cell(plant.VirtualConstraints);
             ny = length(y);
             y_a = cell(ny,1);
             y_d = cell(ny,1);
             tau = cell(ny,1);
             
             % total dimension of the virtual constraints
-            dim_y = sum([y.Dimension]);
+            dim_y = sum([y{:}.Dimension]);
             % partial derivative of the highest order of derivative (y^n-1) w.r.t.
             % the state variable 'x'
             DLfy = zeros(dim_y,length(x));   % A = DLfy*gfc; Lf = DLfy*vfc;

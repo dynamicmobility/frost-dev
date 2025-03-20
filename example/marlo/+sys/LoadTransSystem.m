@@ -19,20 +19,20 @@ function [system] = LoadTransSystem(model, load_path)
     leftStance2.UserNlpConstraint = @trans_opt.callback.LeftStance2Constraints;
     
     leftImpact1 = RigidImpact('LeftImpact', leftStance1, 'leftFootHeight'); % To leftStance
-    leftImpact1.addImpactConstraint(struct2array(leftStance1.HolonomicConstraints), load_path);
+    leftImpact1.addImpactConstraint(struct2cell(leftStance1.HolonomicConstraints), load_path);
     leftImpact1.UserNlpConstraint = @trans_opt.callback.LeftImpactConstraints;
     
     rightImpact1 = RigidImpact('RightImpact', rightStance1, 'rightFootHeight'); % To rightStance
-    rightImpact1.addImpactConstraint(struct2array(rightStance1.HolonomicConstraints), load_path);
+    rightImpact1.addImpactConstraint(struct2cell(rightStance1.HolonomicConstraints), load_path);
     rightImpact1.UserNlpConstraint = @trans_opt.callback.RightImpactConstraints;
     
     leftImpact2 = copy(leftImpact1);
     %     leftImpact2 = RigidImpact('LeftImpact2', leftStance2, 'leftFootHeight'); % To leftStance
-    %     leftImpact2.addImpactConstraint(struct2array(leftStance2.HolonomicConstraints), load_path);
+    %     leftImpact2.addImpactConstraint(struct2cell(leftStance2.HolonomicConstraints), load_path);
     %     leftImpact2.UserNlpConstraint = @trans_opt.callback.LeftImpact2Constraints;
     
     %     rightImpact2 = RigidImpact('RightImpact2', rightStance2, 'rightFootHeight'); % To rightStance
-    %     rightImpact2.addImpactConstraint(struct2array(rightStance2.HolonomicConstraints), load_path);
+    %     rightImpact2.addImpactConstraint(struct2cell(rightStance2.HolonomicConstraints), load_path);
     %     rightImpact2 = copy(rightImpact1);
     %     rightImpact2.setName('RightImpact2');
     %     rightImpact2.UserNlpConstraint = @trans_opt.callback.RightImpact2Constraints;

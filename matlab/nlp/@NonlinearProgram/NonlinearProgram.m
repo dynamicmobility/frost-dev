@@ -71,9 +71,9 @@ classdef NonlinearProgram < handle
             %  option: the options
             
             arguments
-                name char {mustBeTextScalar}
-                option.DerivativeLevel {mustBeMember(option.DerivativeLevel, {0,1,2})} = 1
-                option.EqualityConstraintBoundary double {mustBePositive} = 0
+                name char {mustBeTextScalar} = ''
+                option.DerivativeLevel {mustBeMember(option.DerivativeLevel, [0,1,2])} = 1
+                option.EqualityConstraintBoundary double {mustBeNonnegative} = 0
             end
             
             obj.Name = name;
