@@ -16,7 +16,7 @@ function frost_addpath()
     % Add useful custom functions path
     addpath(fullfile(cur, 'matlab', 'utils'));
     addpath_matlab_utilities('general', 'mex', ...
-        'graphics', 'mathlink', ...
+        'graphics', 'mathlink','matlabYaml', ...
         'sim', 'plot');
 
     % Add third party packages/libraries path
@@ -31,4 +31,5 @@ function frost_addpath()
 
     % warning('Restart Matlab to use the Snake yaml library.');
     % addpath(fullfile(cur, 'docs'));
+    
 end 
