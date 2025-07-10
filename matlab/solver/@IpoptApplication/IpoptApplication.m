@@ -56,7 +56,9 @@ classdef IpoptApplication < SolverApplication
             options.ipopt.mu_strategy      = 'adaptive';
             options.ipopt.max_iter         = 1000;
             options.ipopt.tol              = 1e-3;
+            if ~ismac
             options.ipopt.linear_solver    = 'ma57';
+            end
             options.ipopt.ma57_automatic_scaling = 'yes';
             options.ipopt.linear_scaling_on_demand = 'no';
             options.ipopt.ma57_pre_alloc = 2;
