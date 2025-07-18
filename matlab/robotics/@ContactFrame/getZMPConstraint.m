@@ -95,6 +95,28 @@ function [f_constr, label, auxdata] = getZMPConstraint(obj, f, geometry)
                 {'scalar','real','>=',0},...
                 'ContactFrame.getZMPConstraint','lb');
             auxdata = [geometry.la;geometry.lb];
+        case 'LineContactXAxisWithFriction'
+            % x, y, z, pitch, yaw
+            zmp = [La*f(3) + f(4);  % -La*fz < my
+                Lb*f(3) - f(4)];    % my < Lb*fz
+            
+            % create a symbolic function object
+            f_constr = SymFunction(fun_name,...
+                zmp,{f},{[La;Lb]});
+            
+            % create the label text
+            label = {'pitch_pos';
+                'pitch_neg';
+                };
+            
+            % validate the provided static friction coefficient
+            validateattributes(geometry.La,{'double'},...
+                {'scalar','real','>=',0},...
+                'ContactFrame.getZMPConstraint','La');
+            validateattributes(geometry.Lb,{'double'},...
+                {'scalar','real','>=',0},...
+                'ContactFrame.getZMPConstraint','Lb');
+            auxdata = [geometry.La;geometry.Lb];
         case 'LineContactWithoutFriction'
             % z, roll
             zmp = [la*f(1) - f(2);  % la*fz > mx

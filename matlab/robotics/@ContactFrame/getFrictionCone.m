@@ -120,14 +120,14 @@ function [f_constr,label,auxdata] = getFrictionCone(obj, f, fric_coef)
                 };
             auxdata = [];
         case 'LineContactWithFriction'
-            % x, y, z, roll, yaw
+            % x, y, z, roll, yaw -> f(1) f(2) f(3) f(4) f(5) 
             constr = [f(3); % fz >= 0
                 f(1) + (mu/sqrt(2))*f(3);  % -mu/sqrt(2) * fz < fx
                 -f(1) + (mu/sqrt(2))*f(3); % fx < mu/sqrt(2) * fz
                 f(2) + (mu/sqrt(2))*f(3);  % -mu/sqrt(2) * fz < fu
                 -f(2) + (mu/sqrt(2))*f(3); % fy < mu/sqrt(2) * fz
-                f(5) + gamma * f(3);       % -gamma * fz < wy
-                -f(5) + gamma * f(3)];     % wy < gamma * fz
+                f(5) + gamma * f(3);       % -gamma * fz < wz
+                -f(5) + gamma * f(3)];     % wz < gamma * fz
             
             % create a symbolic function object
             f_constr = SymFunction(fun_name,...
@@ -139,8 +139,43 @@ function [f_constr,label,auxdata] = getFrictionCone(obj, f, fric_coef)
                 'friction_x_neg';
                 'friction_y_pos';
                 'friction_y_neg';
-                'tor_firction_neg';
-                'tor_firction_pos';
+                'tor_friction_neg';
+                'tor_friction_pos';
+                };
+            
+            % validate the provided static friction coefficient
+            validateattributes(fric_coef.mu,{'double'},...
+                {'scalar','real','>=',0},...
+                'ContactFrame.getFrictionCone','mu');
+            
+            % validate the provided torsional friction coefficient
+            validateattributes(fric_coef.gamma,{'double'},...
+                {'scalar','real','>=',0},...
+                'ContactFrame.getFrictionCone','gamma');
+            auxdata = [fric_coef.mu; fric_coef.gamma];
+
+        case 'LineContactXAxisWithFriction'
+            % x, y, z, pitch, yaw -> f(1) f(2) f(3) f(4) f(5)
+            constr = [f(3); % fz >= 0
+                f(1) + (mu/sqrt(2))*f(3);  % -mu/sqrt(2) * fz < fx
+                -f(1) + (mu/sqrt(2))*f(3); % fx < mu/sqrt(2) * fz
+                f(2) + (mu/sqrt(2))*f(3);  % -mu/sqrt(2) * fz < fu
+                -f(2) + (mu/sqrt(2))*f(3); % fy < mu/sqrt(2) * fz
+                f(5) + gamma * f(3);       % -gamma * fz < wz
+                -f(5) + gamma * f(3)];     % wz < gamma * fz
+            
+            % create a symbolic function object
+            f_constr = SymFunction(fun_name,...
+                constr,{f},{[mu;gamma]});
+            
+            % create the label text
+            label = {'normal_force';
+                'friction_x_pos';
+                'friction_x_neg';
+                'friction_y_pos';
+                'friction_y_neg';
+                'tor_friction_neg';
+                'tor_friction_pos';
                 };
             
             % validate the provided static friction coefficient
@@ -165,7 +200,7 @@ function [f_constr,label,auxdata] = getFrictionCone(obj, f, fric_coef)
                 };
             auxdata = [];
         case 'PlanarContactWithFriction'
-            % x, y, z, roll, pitch, yaw
+            % x, y, z, roll, pitch, yaw -> f(1) f(2) f(3) f(4) f(5) f(6)
             constr = [f(3); % fz >= 0
                 f(1) + (mu/sqrt(2))*f(3);  % -mu/sqrt(2) * fz < fx
                 -f(1) + (mu/sqrt(2))*f(3); % fx < mu/sqrt(2) * fz

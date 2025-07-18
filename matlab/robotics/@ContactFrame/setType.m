@@ -10,6 +10,7 @@ function obj = setType(obj, type)
         'PointContactWithFriction',...
         'PointContactWithoutFriction',...
         'LineContactWithFriction',...
+        'LineContactXAxisWithFriction',...
         'LineContactWithoutFriction',...
         'PlanarContactWithFriction',...
         'PlanarContactWithoutFriction'};
@@ -19,7 +20,7 @@ function obj = setType(obj, type)
     I = eye(6);
     switch obj.Type
         case 'PlanarLineContactWithFriction'
-            % x, z
+            % x, z, pitch
             obj.WrenchBase = I(:,[1,3,5]);
         case 'PlanarPointContactWithFriction'
             % x, z
@@ -30,9 +31,12 @@ function obj = setType(obj, type)
         case 'PointContactWithoutFriction'
             % z
             obj.WrenchBase = I(:,3);
-        case 'LineContactWithFriction'
+        case 'LineContactWithFriction' % Line in Y-Axis
             % x, y, z, roll, yaw
             obj.WrenchBase = I(:,[1,2,3,4,6]);
+        case 'LineContactXAxisWithFriction' % Line in X-Axis
+            % x, y, z, pitch, yaw
+            obj.WrenchBase = I(:,[1,2,3,5,6]);
         case 'LineContactWithoutFriction'
             % z, roll
             obj.WrenchBase = I(:,[3,6]);
