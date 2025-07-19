@@ -81,8 +81,6 @@ function [f_constr,label,auxdata] = getFrictionCone(obj, f, fric_coef)
                 -f(1) + (mu/sqrt(2))*f(3);
                 f(2) + (mu/sqrt(2))*f(3);
                 -f(2) + (mu/sqrt(2))*f(3)];
-%                 f(4) + gamma * f(3);       % -gamma * fz < wz
-%                 -f(4) + gamma * f(3)];     % wz < gamma * fz
             
             % create a symbolic function object
             f_constr = SymFunction(fun_name,...
@@ -94,9 +92,6 @@ function [f_constr,label,auxdata] = getFrictionCone(obj, f, fric_coef)
                 'friction_x_neg';
                 'friction_y_pos';
                 'friction_y_neg'};
-%                 'tor_firction_neg';
-%                 'tor_firction_pos';
-%                 };
             
             % validate the provided static friction coefficient
             validateattributes(fric_coef.mu,{'double'},...
@@ -219,8 +214,8 @@ function [f_constr,label,auxdata] = getFrictionCone(obj, f, fric_coef)
                 'friction_x_neg';
                 'friction_y_pos';
                 'friction_y_neg';
-                'tor_firction_neg';
-                'tor_firction_pos';
+                'tor_friction_neg';
+                'tor_friction_pos';
                 };
             
             % validate the provided static friction coefficient

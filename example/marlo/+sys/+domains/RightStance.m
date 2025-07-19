@@ -61,8 +61,8 @@ function domain = RightStance(model, load_path)
             'friction_x_neg';
             'friction_y_pos';
             'friction_y_neg';
-            'tor_firction_neg';
-            'tor_firction_pos';
+            'tor_friction_neg';
+            'tor_friction_pos';
             };
         
         

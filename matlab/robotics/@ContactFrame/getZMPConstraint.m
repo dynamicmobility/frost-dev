@@ -105,8 +105,8 @@ function [f_constr, label, auxdata] = getZMPConstraint(obj, f, geometry)
                 zmp,{f},{[La;Lb]});
             
             % create the label text
-            label = {'pitch_pos';
-                'pitch_neg';
+            label = {'pitch_neg';
+                'pitch_pos';
                 };
             
             % validate the provided static friction coefficient

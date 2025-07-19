@@ -13,7 +13,8 @@ classdef  (InferiorClasses = {?CoordinateFrame})  ContactFrame < CoordinateFrame
     % The following contact type is supported:
     % - 'PointContactWithFriction'
     % - 'PointContactWithoutFriction'
-    % - 'LineContactWithFriction'
+    % - 'LineContactWithFriction' (the line contact is along the y-axis)
+    % - 'LineContactXAxisWithFriction'(the line contact is along the x-axis)
     % - 'LineContactWithoutFriction'
     % - 'PlanarContactWithFriction'
     % - 'PlanarContactWithoutFriction'
