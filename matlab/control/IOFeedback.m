@@ -88,7 +88,7 @@ classdef IOFeedback < Controller
                 output_param = y_i.OutputParamName; % desired output parameters
                 phase_param  = y_i.PhaseParamName;  % phase variable parameters
                 
-                
+
                 if isfield(params,output_param)
                     a = params.(output_param);
                 else
@@ -110,6 +110,16 @@ classdef IOFeedback < Controller
                 tau{i} = calcPhaseVariable(y_i, t, q, dq, p);
                 
                 
+                % Adjust phase params so that tau is bounded between 0 and
+                % 1
+                if tau{i}{1}>1
+                    tau{i} = calcPhaseVariable(y_i, t, q, dq, p);
+                    delta = tau{i}{1}*(p(1) - p(2)) ...
+                            +  p(2);
+                    p(1) =  delta;
+                    y_d{i} = calcDesired(y_i, t, q, dq, a, p);  
+                    tau{i} = calcPhaseVariable(y_i, t, q, dq, p);
+                end
                 
                 
                 % control gain (k0,k1,...kN-1) for the feedback term
