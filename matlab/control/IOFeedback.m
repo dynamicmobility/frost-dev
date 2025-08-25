@@ -112,14 +112,14 @@ classdef IOFeedback < Controller
                 
                 % Adjust phase params so that tau is bounded between 0 and
                 % 1
-                if tau{i}{1}>1
-                    tau{i} = calcPhaseVariable(y_i, t, q, dq, p);
-                    delta = tau{i}{1}*(p(1) - p(2)) ...
-                            +  p(2);
-                    p(1) =  delta;
-                    y_d{i} = calcDesired(y_i, t, q, dq, a, p);  
-                    tau{i} = calcPhaseVariable(y_i, t, q, dq, p);
-                end
+                % if tau{i}{1}>1
+                %     tau{i} = calcPhaseVariable(y_i, t, q, dq, p);
+                %     delta = tau{i}{1}*(p(1) - p(2)) ...
+                %             +  p(2);
+                %     p(1) =  delta;
+                %     y_d{i} = calcDesired(y_i, t, q, dq, a, p);  
+                %     tau{i} = calcPhaseVariable(y_i, t, q, dq, p);
+                % end
                 
                 
                 % control gain (k0,k1,...kN-1) for the feedback term
